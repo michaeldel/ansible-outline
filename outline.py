@@ -46,3 +46,4 @@ for role in roles.values():
                     print("    - 👮 assert")
                 if 'name' in block:
                     print("    -", block['name'])
+                raise NotImplementedError
