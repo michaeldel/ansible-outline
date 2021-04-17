@@ -50,6 +50,18 @@ for path in sorted(pathlib.Path().glob('roles/**/vars/*.yml')):
     roles[rolename].varsfiles.append(varsfile)
 
 
+def tree(root: pathlib.Path, depth: int = 0):
+    assert root.is_dir()
+
+    print(depth * "  ", "📂 ", root.stem, sep='')
+
+    for dir in sorted((p for p in root.iterdir() if p.is_dir())):
+        tree(dir, depth + 1)
+
+    for file in sorted((p for p in root.iterdir() if not p.is_dir())):
+        print(depth * "  ", "  - ", file.name, sep='')
+
+
 for role in roles.values():
     print("👥", role.name)
 
@@ -71,3 +83,7 @@ for role in roles.values():
                     print("    - 👮 assert")
                 if 'name' in block:
                     print("    -", block['name'])
+
+    files = pathlib.Path(f'roles/{role.name}/files')
+    if files.exists():
+        tree(files, depth=1)
