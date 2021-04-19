@@ -87,3 +87,7 @@ for role in roles.values():
     files = pathlib.Path(f'roles/{role.name}/files')
     if files.exists():
         tree(files, depth=1)
+
+    templates = pathlib.Path(f'roles/{role.name}/templates')
+    if templates.exists():
+        tree(templates, depth=1)
